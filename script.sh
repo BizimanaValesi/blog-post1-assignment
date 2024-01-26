@@ -9,11 +9,11 @@ fi
 project_name=$1
 base_dir=$(pwd)
 
-#  project structure
-mkdir -p "$base_dir/$project_name/{css,js,assets,config}"
+# Create project structure
+mkdir -p "$base_dir/$project_name/css" "$base_dir/$project_name/js" "$base_dir/$project_name/assets" "$base_dir/$project_name/config"
 
-# HTML file  boilerplate
-cat << EOF > "$base_dir/$project_name/index.html"
+# HTML  boilerplate
+cat <<EOF > "$base_dir/$project_name/index.html"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +33,7 @@ cat << EOF > "$base_dir/$project_name/index.html"
 EOF
 
 # CSS boilerplate
-cat << EOF > "$base_dir/$project_name/css/style.css"
+cat <<EOF > "$base_dir/$project_name/css/style.css"
 /* Reset or normalization CSS */
 body, h1, h2, h3, p { margin: 0; padding: 0; }
 body { font-family: Arial, sans-serif; }
@@ -42,18 +42,17 @@ header, footer { text-align: center; }
 main { padding: 15px; }
 EOF
 
-#  JS boilerplate
-cat << EOF > "$base_dir/$project_name/js/script.js"
+# JS boilerplate
+cat <<EOF > "$base_dir/$project_name/js/script.js"
 document.addEventListener('DOMContentLoaded', function() {
     console.log('JavaScript loaded');
-   
 });
 EOF
 
 # .gitignore file
 echo "node_modules/" > "$base_dir/$project_name/.gitignore"
 
-# Testing if CSS and JS files are not empty
+# Test if CSS and JS files are not empty
 if [ -s "$base_dir/$project_name/css/style.css" ] && [ -s "$base_dir/$project_name/js/script.js" ]; then
     echo "CSS and JS files are set up correctly."
 else
