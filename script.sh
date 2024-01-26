@@ -9,26 +9,56 @@ fi
 project_name=$1
 base_dir=$(pwd)
 
-# Creating project structure
-mkdir -p "$base_dir/$project_name/{css,js,tests}"
+#  project structure
+mkdir -p "$base_dir/$project_name/{css,js,assets,config}"
 
-# Adding boilerplate code
-echo "/* Default CSS */" > "$base_dir/$project_name/css/style.css"
-echo "// JavaScript file" > "$base_dir/$project_name/js/script.js"
-echo "Simple test script" > "$base_dir/$project_name/tests/test.js"
+# HTML file  boilerplate
+cat << EOF > "$base_dir/$project_name/index.html"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Description of the project">
+    <title>$project_name</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header></header>
+    <main></main>
+    <footer></footer>
+    <script src="js/script.js"></script>
+</body>
+</html>
+EOF
 
-# Adding .gitignore file
+# CSS boilerplate
+cat << EOF > "$base_dir/$project_name/css/style.css"
+/* Reset or normalization CSS */
+body, h1, h2, h3, p { margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; }
+/* Basic styles */
+header, footer { text-align: center; }
+main { padding: 15px; }
+EOF
+
+#  JS boilerplate
+cat << EOF > "$base_dir/$project_name/js/script.js"
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('JavaScript loaded');
+   
+});
+EOF
+
+# .gitignore file
 echo "node_modules/" > "$base_dir/$project_name/.gitignore"
 
-# Performing simple tests
-
+# Testing if CSS and JS files are not empty
 if [ -s "$base_dir/$project_name/css/style.css" ] && [ -s "$base_dir/$project_name/js/script.js" ]; then
     echo "CSS and JS files are set up correctly."
 else
     echo "Error: CSS or JS files are empty."
 fi
-
-
 
 # Initialize Git repository
 cd "$base_dir/$project_name"
@@ -36,5 +66,7 @@ git init
 git add .
 git commit -m "Initial commit"
 
-# Reminder to link the local repository to a remote one
-echo "Don't forget to link this project with a remote GitHub repository!"
+# Open the project directory in Visual Studio Code
+code "$base_dir/$project_name"
+
+echo "Project $project_name created successfully."
